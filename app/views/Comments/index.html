@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+ 
+#{form @create()}
+    id: <input type="text" name="id" />
+    text: <input type="text" name="text" />
+    opinion: <input type="text" name="opinion" />
+    userId: <input type="text" name="userId" />
+    <input type="submit" value="Send it..." />
+#{/}

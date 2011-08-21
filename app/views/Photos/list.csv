@@ -1,0 +1,4 @@
+#{list items:photoList, as:'photo'}
+${photo.id},${photo.title},${photo.postedDate}
+#{/list}
+

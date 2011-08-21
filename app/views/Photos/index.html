@@ -1,0 +1,9 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+ 
+#{form @create(), enctype:'multipart/form-data'}
+    userId: <input type="text" name="id" />
+    title: <input type="text" name="title" />
+    <input type="file" id="photo" name="image" />
+    <input type="submit" value="Send it..." />
+#{/}

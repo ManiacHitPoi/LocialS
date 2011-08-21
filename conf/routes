@@ -1,0 +1,46 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                       Application.index
+
+# LocialS
+GET	/comments/create			Comments.create
+GET	/comments/get_by_photo			Comments.show
+GET	/comments/list				Comments.list
+GET	/coupons/search				Coupons.search
+GET	/coupons/{id}				Coupons.show
+GET	/events/list				Events.list
+GET	/events/{id}				Events.show
+GET	/flyers/random				Flyers.random
+#GET	/people/register			People.register(format:'csv')
+GET	/people/register			People.register
+GET	/people/search				People.search
+#GET	/people/{id}				People.show(format:'csv')
+GET	/people/show				People.list
+#test
+#GET	/photos/				Photos.index
+POST	/photos/create				Photos.create
+GET	/photos/list				Photos.list(format:'csv')
+#GET	/photos/list				Photos.list
+GET	/photos/{id}				Photos.show
+POST	/coupons/create				Coupons.create
+POST	/events/create				Events.create
+POST	/flyers/create				Flyers.create
+
+# MFP mock-up
+GET	/comments/				Comments.index
+GET	/photos/				Photos.index
+GET	/coupons/				Coupons.index
+GET	/events/				Events.index
+GET	/flyers/				Flyers.index
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}
