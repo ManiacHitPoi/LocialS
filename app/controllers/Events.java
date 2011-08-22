@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 import java.io.FileInputStream;
 import java.io.File;
@@ -16,13 +17,14 @@ import play.mvc.Controller;
 
 public class Events extends Contents {
 
-    public static void create(Long id, String title, File image, Integer area) throws FileNotFoundException {
+    public static void create(Long id, String title, Date eventDate,
+            File image, Integer area) throws FileNotFoundException {
         Person person = Person.findById(id);
         Blob photo = new Blob();
 
         photo.set(new FileInputStream(image.getAbsolutePath()),
                 MimeTypes.getContentType(image.getName()));
-        Event content = new Event(person, title, photo, area);
+        Event content = new Event(person, title, eventDate, photo, area);
         content.save();
         render(content);
     }
