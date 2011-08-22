@@ -10,6 +10,7 @@ import play.db.jpa.*;
 
 import models.Event;
 import models.Person;
+import models.Photo;
 import play.libs.MimeTypes;
 import play.mvc.Controller;
 
@@ -24,5 +25,13 @@ public class Events extends Contents {
         Event content = new Event(person, title, photo, area);
         content.save();
         render(content);
+    }
+    
+    public static void list() {
+        List<Event> eventList = Event.findAll();
+        //Person person = Person.findById(id);
+        //photoList = Photo.find("byOwner_Id",id).fetch();
+        renderArgs.put("eventList", eventList);
+        render();
     }
 }
