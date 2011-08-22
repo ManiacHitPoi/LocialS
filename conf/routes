@@ -11,7 +11,7 @@ GET	/comments/get_by_photo			Comments.show
 GET	/comments/list				Comments.list
 GET	/coupons/search				Coupons.search
 GET	/coupons/{id}				Coupons.show
-GET	/events/list				Events.list(format: 'csv')
+GET	/events/list				Events.list(format:'csv')
 GET	/events/{id}				Events.show
 GET	/flyers/random				Flyers.random
 #GET	/people/register			People.register(format:'csv')

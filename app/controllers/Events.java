@@ -29,8 +29,6 @@ public class Events extends Contents {
     
     public static void list() {
         List<Event> eventList = Event.findAll();
-        //Person person = Person.findById(id);
-        //photoList = Photo.find("byOwner_Id",id).fetch();
         renderArgs.put("eventList", eventList);
         render();
     }
