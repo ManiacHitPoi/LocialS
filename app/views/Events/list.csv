@@ -1,0 +1,3 @@
+#{list items:eventList, as:'event'}
+${event.id},${event.postedDate},${event.title}
+#{/list}
