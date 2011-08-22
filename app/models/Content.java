@@ -27,7 +27,6 @@ public class Content extends Model {
     @Required
     public Date postedDate;
     
-    @Required
     public Date eventDate;
     
     @Required
@@ -44,6 +43,7 @@ public class Content extends Model {
         this.image = image;
         this.postedDate = Calendar.getInstance().getTime();
     }
+    
     public Content(Person owner, String title, Date eventDate, Blob image) {
         this.owner = owner;
         this.title = title;
