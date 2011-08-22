@@ -8,8 +8,10 @@ import javax.persistence.*;
 
 @Entity
 public class Event extends Content {
-    public Event(Person owner, String title, Blob image, Integer targetAreaId) {
-        super(owner, title, image);
+
+    public Event(Person owner, String title, Date eventDate,
+            Blob image, Integer targetAreaId) {
+        super(owner, title, eventDate, image);
         this.targetAreaId = targetAreaId;
     }
 }
