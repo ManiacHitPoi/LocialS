@@ -30,7 +30,9 @@ public class Events extends Contents {
     }
     
     public static void list() {
-        List<Event> eventList = Event.findAll();
+        //List<Event> eventList = Event.find("id > ?", new Long(45)).fetch();
+        List<Event> eventList = Event.find("posteddate >= ?", "2011-08-20 00:00:00").fetch();
+        //List<Event> eventList = Event.findAll();
         renderArgs.put("eventList", eventList);
         render();
     }
