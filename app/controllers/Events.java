@@ -5,6 +5,7 @@ import java.util.List;
 import java.io.FileInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 
 import play.Logger;
 import play.db.jpa.*;
@@ -30,8 +31,13 @@ public class Events extends Contents {
     }
     
     public static void list() {
+        Date today = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        List<Event> eventList = Event.find("eventdate >= ?", formatter.format(today)).fetch();
+        
+
         //List<Event> eventList = Event.find("id > ?", new Long(45)).fetch();
-        List<Event> eventList = Event.find("posteddate >= ?", "2011-08-20 00:00:00").fetch();
+        //List<Event> eventList = Event.find("posteddate >= ?", "2011-08-20 00:00:00").fetch();
         //List<Event> eventList = Event.findAll();
         renderArgs.put("eventList", eventList);
         render();
