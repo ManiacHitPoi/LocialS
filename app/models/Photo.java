@@ -21,9 +21,6 @@ public class Photo extends Content {
     public Photo(Person owner, String title, Blob image) {
         super(owner, title, image);
         this.comments = new ArrayList<Comment>();
-        //this.owner = owner;
-        //this.title = title;
-        //this.image = image;
     }
    
 }
