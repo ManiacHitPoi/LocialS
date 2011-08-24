@@ -13,7 +13,7 @@ public class Comment extends Model {
     public Long userId;
     
     @Required
-    @Lob
+    //@Lob
     public String text;
 
     public Boolean opinion;
