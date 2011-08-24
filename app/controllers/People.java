@@ -29,14 +29,10 @@ public class People extends Controller {
         
     }
     
-    public static void show(Integer userId) {
+    public static void show() {
         Long id = params.get("id", Long.class);
         List<Person> people = null;
-        if (id == null) {
-            people = Person.findAll();
-        } else {
-            people = Person.find("byId", userId).fetch();
-        }
+        people = Person.find("byId", id).fetch();
         renderArgs.put("people", people);
         //response.encoding = "ISO-8859-1";
         render();

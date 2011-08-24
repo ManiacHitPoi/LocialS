@@ -18,7 +18,7 @@ GET	/flyers/random				Flyers.random
 GET	/people/register			People.register
 GET	/people/search				People.search
 #GET	/people/{id}				People.show(format:'csv')
-GET	/people/show				People.list
+GET	/people/{id}				People.show
 #test
 #GET	/photos/				Photos.index
 POST	/photos/create				Photos.create
