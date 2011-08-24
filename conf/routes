@@ -6,7 +6,7 @@
 GET     /                                       Application.index
 
 # LocialS
-GET	/comments/create			Comments.create
+POST	/comments/create			Comments.create
 GET	/comments/get_by_photo			Comments.show
 GET	/comments/list				Comments.list
 GET	/coupons/search				Coupons.search
