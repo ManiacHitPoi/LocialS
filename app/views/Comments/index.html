@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
  
-#{form @create()}
+#{form @create(), enctype:'application/x-www-form-urlencoded'}
     id: <input type="text" name="id" />
     text: <input type="text" name="text" />
     opinion: <input type="text" name="opinion" />
