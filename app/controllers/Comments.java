@@ -38,7 +38,9 @@ public class Comments extends Controller {
     }
     
     public static void getByPhoto(Long id) {
-        
+        List<Comment> commentList = Comment.find("photo_id is ? order by postedDate desc", id).fetch();                
+        renderArgs.put("comments", commentList);
+        render();
         
     }
 
