@@ -30,14 +30,15 @@ public class Comments extends Controller {
         render(comment);
     }
         
-    public static void list(Integer id) {
-        List<Comment> c = Comment.findAll();
-        renderArgs.put("comments", c);
-        response.encoding = "UTF-8";
+    public static void list(Long id) {
+        List<Comment> commentList = Comment.find("byUserId", id).fetch();
+        renderArgs.put("comments", commentList);
+        //TODO: Person.name and Content.title should be returned.
         render();
     }
     
-    public static void getByPhoto(Integer id) {
+    public static void getByPhoto(Long id) {
+        
         
     }
 
