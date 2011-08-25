@@ -26,7 +26,8 @@ public class Comments extends Controller {
         Person person = Person.findById(new Long(userId));
 
         Photo photo = Photo.findById(new Long(id));
-        new Comment(person, photo, text, opinion).save();
+        Comment comment = new Comment(person, photo, text, opinion).save();
+        render(comment);
     }
         
     public static void list(Integer id) {
