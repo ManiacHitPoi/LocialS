@@ -15,12 +15,12 @@ GET	/events/list				Events.list(format:'csv')
 GET	/events/{id}				Events.show
 GET	/flyers/random				Flyers.random
 #GET	/people/register			People.register(format:'csv')
+POST	/people/login				People.login
 GET	/people/register			People.register
 GET	/people/search				People.search
 #GET	/people/{id}				People.show(format:'csv')
 GET	/people/{id}				People.show
 #test
-#GET	/photos/				Photos.index
 POST	/photos/create				Photos.create
 GET	/photos/list				Photos.list(format:'csv')
 #GET	/photos/list				Photos.list
@@ -31,10 +31,12 @@ POST	/flyers/create				Flyers.create
 
 # MFP mock-up
 GET	/comments/				Comments.index
-GET	/photos/				Photos.index
 GET	/coupons/				Coupons.index
+GET	/photos/				Photos.index
 GET	/events/				Events.index
+GET	/photos/				Photos.index
 GET	/flyers/				Flyers.index
+GET	/people/				People.index
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

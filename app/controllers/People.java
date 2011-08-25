@@ -10,6 +10,10 @@ import play.mvc.Controller;
 
 public class People extends Controller {
     
+    public static void index() {
+        render();
+    }
+    
     public static void register(String name, Integer age, Boolean sex,
             Integer area) throws PersistenceException {
                 
@@ -26,7 +30,9 @@ public class People extends Controller {
     }    
 
     public static void login(String name) {
-        
+        List<Person> people = Person.find("byName", name).fetch();
+        renderArgs.put("people", people);
+        render();                    
     }
     
     public static void show() {
