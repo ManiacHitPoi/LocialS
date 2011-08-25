@@ -1,3 +1,4 @@
 data/*
 tmp/*
+eclipse/classes/*/
 .*.class
