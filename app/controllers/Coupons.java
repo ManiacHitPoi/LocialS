@@ -35,14 +35,14 @@ public class Coupons extends Contents {
         //        title + "%", age, sex, area).fetch();
         String query = "title like ?";
 
-        if (age != -1) {
-            query += " and targetAgeId is " + age;
+        if (age != null && age != -1) {
+            query += " and targetAgeId = " + age;
         }
         if (sex != null) {
             query += " and targetSex = " + sex;
         }
-        if (area != -1) {
-            query += " and targetAreaId is " + area;
+        if (area != null && area != -1) {
+            query += " and targetAreaId = " + area;
         }
         List<Event> couponList = Coupon.find(query, title + "%").fetch();
 
