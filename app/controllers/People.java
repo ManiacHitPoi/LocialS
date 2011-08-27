@@ -24,41 +24,30 @@ public class People extends Controller {
         render();
     }
     
-    // ToDo
     public static void search(String name, Integer age, Boolean sex, Integer area) {
  
         // TODO
         //if (validation.hasErrors()) {
         //}
         
-        String query = "select p from Person p where ";
+        String query = "name like ? ";
         
-        query += "p.name like ?";
-                
-        if (age != null) {
-            query += " and p.ageId is " + age;
+        if (age != null && age != -1) {
+            query += " and ageId = " + age;
         }
 
         if (sex != null) {
-            query += " and p.sex = " + sex;            
+            query += " and sex = " + sex;            
         }
 
-        if (area != null) {
-            query += " and p.areaId is " + area;
+        if (area != null && area != -1) {
+            query += " and areaId is " + area;
         }
         
         List<Person> people = Person.find(query, name + "%").fetch();
-        //List<Person> people = Person.find("select p from Person p where p.name like ?", name+"%").fetch();
-        //List<Person> people = Person.find("select p from Person p where p.name like ? and p.sex = false", name+"%").fetch();
-        //List<Person> people = Person.find("select p from Person p where p.name like ? and p.sex = ? and p.ageId = ? and areaId = ?", name+"%", sex, age, area).fetch();
         renderArgs.put("people", people);
         render();
 
-        //Query query = JPA.em().createQuery("select c from Comment c");
-        //List<Comment> comments = query.getResultList();
-        //renderArgs.put("comments", comments);
-        //render();
-        
     }
 
     public static void login(String name) {
