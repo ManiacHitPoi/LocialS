@@ -9,6 +9,7 @@ import play.Logger;
 import play.db.jpa.*;
 
 import models.Coupon;
+import models.Event;
 import models.Person;
 import play.libs.MimeTypes;
 import play.mvc.Controller;
@@ -16,7 +17,7 @@ import play.mvc.Controller;
 public class Coupons extends Contents {
 
     public static void create(Long id, String title, File image,
-	Integer age, Integer area, Boolean sex) throws FileNotFoundException {
+    Integer age, Integer area, Boolean sex) throws FileNotFoundException {
         Person person = Person.findById(id);
         Blob photo = new Blob();
 
@@ -27,8 +28,11 @@ public class Coupons extends Contents {
         render(content);
     }
 
-    public static void search(String title, Integer age,
-            Boolean sex, Integer area) {
-        
+    public static void search(String title, Integer age, Boolean sex,
+            Integer area) {
+    	List<Event> couponList = Coupon.find("Title like ? and targetAgeId = ? and targetSex = ? and targetAreaId = ?",
+    			"%" + title + "%", age, sex, area).fetch();
+        renderArgs.put("couponList", couponList);
+        render();
     }
 }
