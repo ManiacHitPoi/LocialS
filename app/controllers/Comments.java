@@ -1,6 +1,9 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.io.File;
@@ -42,6 +45,7 @@ public class Comments extends Controller {
             List<Comment> comments = Comment.find("Photo_Id", photo.id).fetch();
             commentList.addAll(comments);
         }
+        Collections.sort(commentList, new CommentComparator());
         renderArgs.put("comments", commentList);
         render();
     }
@@ -51,4 +55,5 @@ public class Comments extends Controller {
         renderArgs.put("comments", commentList);
         render();
     }
+
 }
