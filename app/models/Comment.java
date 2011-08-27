@@ -22,8 +22,8 @@ public class Comment extends Model {
 
     public Boolean opinion;
 
-    @Required
-    public Long photoId;
+    //@Required
+    //public Long photoId;
 
     @Required
     public Date postedDate;
