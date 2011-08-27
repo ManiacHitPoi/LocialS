@@ -33,20 +33,18 @@ public class Coupons extends Contents {
     public static void search(String title, Integer age, Boolean sex, Integer area) {
         //List<Event> couponList = Coupon.find("Title like ? and targetAgeId = ? and targetSex = ? and targetAreaId = ?",
         //        title + "%", age, sex, area).fetch();
-
-        String query = "";
-        query += "title like ?";
+        String query = "title like ?";
 
         if (age != -1) {
-            query += " and targetAgeId = " + age;
+            query += " and targetAgeId is " + age;
         }
         if (sex != null) {
             query += " and targetSex = " + sex;
         }
         if (area != -1) {
-            query += " and targetAreaId = " + area;
+            query += " and targetAreaId is " + area;
         }
-        List<Event> couponList = Coupon.find("Title like ?", title + "%").fetch();
+        List<Event> couponList = Coupon.find(query, title + "%").fetch();
 
        renderArgs.put("couponList", couponList);
         render();
