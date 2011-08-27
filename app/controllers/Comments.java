@@ -15,33 +15,32 @@ import play.libs.MimeTypes;
 import play.mvc.Controller;
 
 public class Comments extends Controller {
-    
+
     public static void index() {
         render();
     }
-    
+
     public static void create(Integer id, String text,
             Boolean opinion, Long userId) throws FileNotFoundException {
-                
+
         Person person = Person.findById(new Long(userId));
 
         Photo photo = Photo.findById(new Long(id));
         Comment comment = new Comment(person, photo, text, opinion).save();
         render(comment);
     }
-        
+
     public static void list(Long id) {
         List<Comment> commentList = Comment.find("byUserId", id).fetch();
         renderArgs.put("comments", commentList);
         //TODO: Person.name and Content.title should be returned.
         render();
     }
-    
+
     public static void getByPhoto(Long id) {
-        List<Comment> commentList = Comment.find("photo_id is ? order by postedDate desc", id).fetch();                
+        List<Comment> commentList = Comment.find("photo_id is ? order by postedDate desc", id).fetch();
         renderArgs.put("comments", commentList);
         render();
-        
     }
 
 }
