@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,9 +33,16 @@ public class Comments extends Controller {
     }
 
     public static void list(Long id) {
-        List<Comment> commentList = Comment.find("byUserId", id).fetch();
+        List<Photo> photoList = Photo.find("byOwner_Id", id).fetch();
+        List<Comment> commentList = new ArrayList<Comment>();
+
+        Iterator it = photoList.iterator();
+        while (it.hasNext()) {
+            Photo photo = (Photo) it.next();
+            List<Comment> comments = Comment.find("Photo_Id", photo.id).fetch();
+            commentList.addAll(comments);
+        }
         renderArgs.put("comments", commentList);
-        //TODO: Person.name and Content.title should be returned.
         render();
     }
 
@@ -42,5 +51,4 @@ public class Comments extends Controller {
         renderArgs.put("comments", commentList);
         render();
     }
-
 }
