@@ -8,27 +8,32 @@ import play.db.jpa.*;
 
 @Entity
 public class Comment extends Model {
-    
+
+    //@Required
+    //public Long userId;
+
     @Required
-    public Long userId;
-    
+    @ManyToOne
+    public Person user;
+
     @Required
     //@Lob
     public String text;
 
     public Boolean opinion;
-    
+
     @Required
     public Long photoId;
-    
+
     @Required
     public Date postedDate;
 
     @ManyToOne
     public Photo photo;
-    
+
     public Comment(Person person, Photo photo, String text, Boolean opinion) {
-        this.userId = person.id;
+        //this.userId = person.id;
+    	this.user = person;
         this.photo = photo;
         this.text = text;
         //this.opinion = Boolean.parseBoolean(opinion);
