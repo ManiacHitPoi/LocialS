@@ -4,6 +4,8 @@ import java.util.List;
 import java.io.FileInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import play.Logger;
 import play.db.jpa.*;
@@ -28,11 +30,25 @@ public class Coupons extends Contents {
         render(content);
     }
 
-    public static void search(String title, Integer age, Boolean sex,
-            Integer area) {
-    	List<Event> couponList = Coupon.find("Title like ? and targetAgeId = ? and targetSex = ? and targetAreaId = ?",
-    			"%" + title + "%", age, sex, area).fetch();
-        renderArgs.put("couponList", couponList);
+    public static void search(String title, Integer age, Boolean sex, Integer area) {
+        //List<Event> couponList = Coupon.find("Title like ? and targetAgeId = ? and targetSex = ? and targetAreaId = ?",
+        //        title + "%", age, sex, area).fetch();
+
+        String query = "";
+        query += "title like ?";
+
+        if (age != -1) {
+            query += " and targetAgeId = " + age;
+        }
+        if (sex != null) {
+            query += " and targetSex = " + sex;
+        }
+        if (area != -1) {
+            query += " and targetAreaId = " + area;
+        }
+        List<Event> couponList = Coupon.find("Title like ?", title + "%").fetch();
+
+       renderArgs.put("couponList", couponList);
         render();
     }
 }
