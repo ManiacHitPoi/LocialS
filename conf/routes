@@ -24,7 +24,7 @@ GET	/flyers/random				Flyers.random
 POST	/people/login				People.login(format:'csv')
 GET	/people/register			People.register(format:'csv')
 GET	/people/search				People.search(format:'csv')
-GET	/people/{id}				People.show(format:'csv')
+GET	/people/{id}				People.show
 
 POST	/photos/create				Photos.create(format:'csv')
 GET	/photos/list				Photos.list(format:'csv')
