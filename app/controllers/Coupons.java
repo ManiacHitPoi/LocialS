@@ -19,15 +19,25 @@ import play.mvc.Controller;
 public class Coupons extends Contents {
 
     public static void create(Long id, String title, File image,
-    Integer age, Integer area, Boolean sex) throws FileNotFoundException {
+    Integer age, Integer area, Boolean sex) {
+    	Coupon content = null;
+
         Person person = Person.findById(id);
         Blob photo = new Blob();
 
-        photo.set(new FileInputStream(image.getAbsolutePath()),
-                MimeTypes.getContentType(image.getName()));
-        Coupon content = new Coupon(person, title, photo, area, sex, age);
-        content.save();
-        render(content);
+        try {
+			photo.set(new FileInputStream(image.getAbsolutePath()),
+			        MimeTypes.getContentType(image.getName()));
+	        content = new Coupon(person, title, photo, area, sex, age);
+	        content.save();
+			//throw new Exception();
+		} catch (FileNotFoundException e1) {
+			content = null;
+		} catch (Exception e2) {
+			content = null;
+		} finally {
+			render(content);
+		}
     }
 
     public static void search(String title, Integer age, Boolean sex, Integer area) {
