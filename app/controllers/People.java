@@ -53,6 +53,8 @@ public class People extends Controller {
     public static void login(String name) {
         List<Person> people = Person.find("byName", name).fetch();
         renderArgs.put("people", people);
+        //person = Person.findById(people.get(0).id);
+        //renderArgs.put("person", person);
         render();                    
     }
     
