@@ -1,3 +1,8 @@
+#{if people}
 #{list items:people, as:'person'}
 ${person.id}
 #{/list}
+#{/if}
+#{else}
+-1
+#{/else}
