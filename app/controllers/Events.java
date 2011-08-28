@@ -33,18 +33,19 @@ public class Events extends Contents {
 
     public static void list(Long id) {
         Date today = new Date();
-        List<Event> eventList = null;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //List<Event> eventList = null;
         //Long userId = params.get("id", Long.class);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        System.err.println(formatter.format(today));
-        if (id == -1) {
-            eventList = Event.find("eventdate >= ? order by eventDate desc", formatter.format(today)).fetch();
-            //eventList = Event.findAll();
 
-        } else {
-            eventList = Event.find("owner_id = ? and eventdate >= ? order by eventDate desc", id,formatter.format(today)).fetch();
+        String query = "eventdate >= '" + formatter.format(today) + "'";
+        if (id != -1) {
+            Person person = Person.findById(id);
+            query += "and targetareaid = " + person.areaId;
         }
+        query += "order by eventDate desc";
+        List<Event> eventList = Event.find(query).fetch();
 
+        //eventList = Event.find("eventdate >= '?' order by eventDate desc", formatter.format(today)).fetch();
         //List<Event> eventList = Event.find("id > ?", new Long(45)).fetch();
         //List<Event> eventList = Event.find("posteddate >= ?", "2011-08-20 00:00:00").fetch();
         //List<Event> eventList = Event.findAll();
@@ -53,9 +54,9 @@ public class Events extends Contents {
     }
 
     private static Date string2date(String strdate) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         try {
-            return sdf.parse(strdate);
+            return formatter.parse(strdate);
         } catch (ParseException e) {
             return null;
         }
