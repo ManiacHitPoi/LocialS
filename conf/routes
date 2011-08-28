@@ -6,28 +6,30 @@
 GET     /                                       Application.index
 
 # LocialS
-POST	/comments/create			Comments.create
-GET	/comments/getByPhoto			Comments.getByPhoto
-GET	/comments/list				Comments.list
-GET	/coupons/search				Coupons.search
+POST	/comments/create			Comments.create(format:'csv')
+GET	/comments/getByPhoto			Comments.getByPhoto(format:'csv')
+GET	/comments/list				Comments.list(format:'csv')
+
+POST	/coupons/create				Coupons.create(format:'csv')
+GET	/coupons/search				Coupons.search(format:'csv')
 GET	/coupons/{id}				Coupons.show
+
+POST	/events/create				Events.create(format:'csv')
 GET	/events/list				Events.list(format:'csv')
 GET	/events/{id}				Events.show
+
+POST	/flyers/create				Flyers.create(format:'csv')
 GET	/flyers/random				Flyers.random
-#GET	/people/register			People.register(format:'csv')
-POST	/people/login				People.login
-GET	/people/register			People.register
-GET	/people/search				People.search
-#GET	/people/{id}				People.show(format:'csv')
-GET	/people/{id}				People.show
-#test
-POST	/photos/create				Photos.create
+
+POST	/people/login				People.login(format:'csv')
+GET	/people/register			People.register(format:'csv')
+GET	/people/search				People.search(format:'csv')
+GET	/people/{id}				People.show(format:'csv')
+
+POST	/photos/create				Photos.create(format:'csv')
 GET	/photos/list				Photos.list(format:'csv')
-#GET	/photos/list				Photos.list
 GET	/photos/{id}				Photos.show
-POST	/coupons/create				Coupons.create
-POST	/events/create				Events.create
-POST	/flyers/create				Flyers.create
+
 
 # MFP mock-up
 GET	/comments/				Comments.index

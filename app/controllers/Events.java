@@ -32,9 +32,15 @@ public class Events extends Contents {
     
     public static void list() {
         Date today = new Date();
+        List<Event> eventList = null;
+        Long userId = params.get("id", Long.class);
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        List<Event> eventList = Event.find("eventdate >= ?", formatter.format(today)).fetch();
-        
+        if (userId == -1) {
+            eventList = Event.find("eventdate >= ? order by eventDate desc", formatter.format(today)).fetch();
+            
+        } else {
+            eventList = Event.find("owner_id = ? and eventdate >= ? order by eventDate desc", userId,formatter.format(today)).fetch();
+        }
 
         //List<Event> eventList = Event.find("id > ?", new Long(45)).fetch();
         //List<Event> eventList = Event.find("posteddate >= ?", "2011-08-20 00:00:00").fetch();
