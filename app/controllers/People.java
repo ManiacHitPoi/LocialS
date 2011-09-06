@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.List;
+import play.Logger;
+
 import javax.persistence.*;
 
 import models.Content;
@@ -51,10 +53,12 @@ public class People extends Controller {
     }
 
     public static void login(String name) {
+        Logger.debug("name: " + name);
         List<Person> people = Person.find("byName", name).fetch();
         renderArgs.put("people", people);
         //person = Person.findById(people.get(0).id);
         //renderArgs.put("person", person);
+        Logger.debug("people: " + people);
         render();                    
     }
     
