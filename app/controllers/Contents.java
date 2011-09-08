@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+import play.Logger;
 import play.db.jpa.*;
 
 import models.*;
@@ -26,6 +27,8 @@ public class Contents extends Controller {
     public static void show(Integer id) {
         List<Content> contents = null;
         String controller = request.get().controller;
+		Logger.debug("Contents#show -> id: " + id);
+		Logger.debug("controller: " + controller);
         if (controller.equals("Photos")) {
             contents = Photo.find("byId", new Long(id)).fetch();
         } else if (controller.equals("Events")) {
@@ -35,6 +38,7 @@ public class Contents extends Controller {
         } else if (controller.equals("Flyers")) {
             contents = Flyer.find("byId", new Long(id)).fetch();
         }
+		Logger.debug("return content: " + contents.get(0));
 
         response.setContentTypeIfNotSet(contents.get(0).image.type());
         renderBinary(contents.get(0).image.get());

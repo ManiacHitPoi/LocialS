@@ -20,6 +20,11 @@ public class Coupons extends Contents {
 
     public static void create(Long id, String title, File image,
     Integer age, Integer area, Boolean sex) {
+		Logger.debug("Coupons#create");
+		Logger.debug("id: " + id + ", title: " + title);
+		Logger.debug("age: " + age + ", image: " + image);
+		Logger.debug("area: " + area + ", sex: " + sex);
+
     	Coupon content = null;
 
         Person person = Person.findById(id);
@@ -30,6 +35,7 @@ public class Coupons extends Contents {
 			        MimeTypes.getContentType(image.getName()));
 	        content = new Coupon(person, title, photo, area, sex, age);
 	        content.save();
+		    Logger.debug("return content: " + content);
 			//throw new Exception();
 		} catch (FileNotFoundException e1) {
 			content = null;
@@ -41,6 +47,9 @@ public class Coupons extends Contents {
     }
 
     public static void search(String title, Integer age, Boolean sex, Integer area) {
+		Logger.debug("Coupons#search");
+		Logger.debug("title: " + title + ", age: " + age);
+		Logger.debug("area: " + area + ", sex: " + sex);
         //List<Event> couponList = Coupon.find("Title like ? and targetAgeId = ? and targetSex = ? and targetAreaId = ?",
         //        title + "%", age, sex, area).fetch();
         String query = "title like ?";
@@ -55,6 +64,7 @@ public class Coupons extends Contents {
             query += " and targetAreaId = " + area;
         }
         List<Event> couponList = Coupon.find(query, title + "%").fetch();
+		Logger.debug("return couponList: " + couponList);
 
        renderArgs.put("couponList", couponList);
         render();

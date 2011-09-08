@@ -19,6 +19,11 @@ public class Flyers extends Contents {
 
     public static void create(Long id, String title, File image,
 	Integer age, Integer area, Boolean sex) throws FileNotFoundException {
+		Logger.debug("Flyers#create");
+		Logger.debug("id: " + id + ", title: " + title);
+		Logger.debug("age: " + age + ", image: " + image);
+		Logger.debug("area: " + area + ", sex: " + sex);
+
         Person person = Person.findById(id);
         Blob photo = new Blob();
 
@@ -26,16 +31,17 @@ public class Flyers extends Contents {
                 MimeTypes.getContentType(image.getName()));
         Flyer content = new Flyer(person, title, photo, area, sex, age);
         content.save();
+		Logger.debug("return content: " + content);
         render(content);
     }
 
     public static void random() {
       List<Flyer> contents = Flyer.findAll();
       int randInt = new Random().nextInt(contents.size());
-      
-      System.err.println(randInt);
       response.setContentTypeIfNotSet(contents.get(randInt).image.type());
-      renderBinary(contents.get(randInt).image.get());
+      Flyer content = contents.get(randInt);
+      Logger.debug("Flyers#random return: " + content);
+      renderBinary(content.image.get());
     }
 
 }

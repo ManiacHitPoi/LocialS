@@ -21,6 +21,11 @@ public class Events extends Contents {
 
     public static void create(Long id, String title, String eventDate,
             File image, Integer area) throws FileNotFoundException {
+
+		Logger.debug("Events#create -> id: " + id);
+		Logger.debug("area: " + area + ", title: " + title);
+		Logger.debug("eventDate: " + eventDate+ ", image: " + image);
+
         Person person = Person.findById(id);
         Blob photo = new Blob();
 
@@ -28,10 +33,12 @@ public class Events extends Contents {
                 MimeTypes.getContentType(image.getName()));
         Event content = new Event(person, title, string2date(eventDate), photo, area);
         content.save();
+		Logger.debug("return content: " + content);
         render(content);
     }
 
     public static void list(Long id) {
+		Logger.debug("Events#list-> id: " + id);
         Date today = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //List<Event> eventList = null;
@@ -49,6 +56,7 @@ public class Events extends Contents {
         //List<Event> eventList = Event.find("id > ?", new Long(45)).fetch();
         //List<Event> eventList = Event.find("posteddate >= ?", "2011-08-20 00:00:00").fetch();
         //List<Event> eventList = Event.findAll();
+		Logger.debug("eventList: " + eventList);
         renderArgs.put("eventList", eventList);
         render();
     }

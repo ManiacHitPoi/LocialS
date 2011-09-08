@@ -18,6 +18,9 @@ public class Photos extends Contents {
 
     public static void create(Long id, String title, Date eventDate,
             File image) throws FileNotFoundException {
+		Logger.debug("Photos#create");
+		Logger.debug("id: " + id + ", title: " + title);
+		Logger.debug("eventDate: " + eventDate + ", image: " + image);
         Person person = Person.findById(id);
         Blob photo = new Blob();
 
@@ -25,13 +28,16 @@ public class Photos extends Contents {
                 MimeTypes.getContentType(image.getName()));
         Photo content = new Photo(person, title, photo);
         content.save();
+		Logger.debug("return content: " + content);
         render(content);
     }
 
     public static void list(Long id) {
+		Logger.debug("Photos#list -> id: " + id);
         List<Photo> photoList = null;
         Person person = Person.findById(id);
         photoList = Photo.find("byOwner_Id",id).fetch();
+		Logger.debug("return photosList: " + photoList);
         renderArgs.put("photoList", photoList);
         render();
     }   
