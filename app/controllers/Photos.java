@@ -16,10 +16,10 @@ import play.mvc.Controller;
 
 public class Photos extends Contents {
 
-    public static void create(Long id, String title, Date eventDate,
-            File image) throws FileNotFoundException {
+    public static void create(Long id, String title, Integer age, Boolean sex,
+            Integer area, Date eventDate, File image) throws FileNotFoundException {
 		Logger.debug("Photos#create");
-		Logger.debug("id: " + id + ", title: " + title);
+		Logger.debug("id: " + id + ", title: " + title + ", age: " + age + ", sex: " + sex + ", area: " + area);
 		Logger.debug("eventDate: " + eventDate + ", image: " + image);
         Person person = Person.findById(id);
         Blob photo = new Blob();
