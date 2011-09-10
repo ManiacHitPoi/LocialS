@@ -38,7 +38,7 @@ public class Contents extends Controller {
         } else if (controller.equals("Flyers")) {
             contents = Flyer.find("byId", new Long(id)).fetch();
         }
-		Logger.debug("return content: " + contents.get(0));
+		Logger.debug("return contents: " + contents);
 
         response.setContentTypeIfNotSet(contents.get(0).image.type());
         renderBinary(contents.get(0).image.get());
