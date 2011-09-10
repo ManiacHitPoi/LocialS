@@ -1,3 +1,3 @@
 #{list items:comments, as:'comment'}
-${comment.postedDate.format('yyyy/MM/dd hh:mm:ss')},${comment.user.name},${comment.text}
+${comment.postedDate.format('yyyy/MM/dd HH:mm:ss')},${comment.user.name},${comment.text}
 #{/list}
