@@ -18,13 +18,13 @@ import play.mvc.Controller;
 
 public class Coupons extends Contents {
 
-    public static void create(Long id, String title, File image,
-    Integer age, Integer area, Boolean sex) {
+    public static void create(Long id, String title, Integer age, Boolean sex,
+            Integer area, String eventDate, File image) throws FileNotFoundException {
 		Logger.debug("Coupons#create");
 		Logger.debug("id: " + id + ", title: " + title);
 		Logger.debug("age: " + age + ", image: " + image);
 		Logger.debug("area: " + area + ", sex: " + sex);
-
+		Logger.debug("eventDate: " + eventDate);
     	Coupon content = null;
 
         Person person = Person.findById(id);

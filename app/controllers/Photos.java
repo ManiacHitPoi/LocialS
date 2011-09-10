@@ -1,6 +1,5 @@
 package controllers;
 
-import java.util.Date;
 import java.util.List;
 import java.io.FileInputStream;
 import java.io.File;
@@ -17,7 +16,7 @@ import play.mvc.Controller;
 public class Photos extends Contents {
 
     public static void create(Long id, String title, Integer age, Boolean sex,
-            Integer area, Date eventDate, File image) throws FileNotFoundException {
+            Integer area, String eventDate, File image) throws FileNotFoundException {
 		Logger.debug("Photos#create");
 		Logger.debug("id: " + id + ", title: " + title + ", age: " + age + ", sex: " + sex + ", area: " + area);
 		Logger.debug("eventDate: " + eventDate + ", image: " + image);

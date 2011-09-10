@@ -19,8 +19,8 @@ import play.mvc.Controller;
 
 public class Events extends Contents {
 
-    public static void create(Long id, String title, String eventDate,
-            File image, Integer area) throws FileNotFoundException {
+    public static void create(Long id, String title, Integer age, Boolean sex,
+            Integer area, String eventDate, File image) throws FileNotFoundException {
 
 		Logger.debug("Events#create -> id: " + id);
 		Logger.debug("area: " + area + ", title: " + title);
