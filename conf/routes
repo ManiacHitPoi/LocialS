@@ -28,7 +28,7 @@ GET	/people/{id}				People.show(format:'csv')
 
 POST	/photos/create				Photos.create(format:'csv')
 GET	/photos/list				Photos.list(format:'csv')
-GET	/photos/{id}				Photos.show
+GET	/photos/{<[0-9]+>id}				Photos.show
 
 
 # MFP mock-up
