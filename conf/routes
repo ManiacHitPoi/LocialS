@@ -12,14 +12,17 @@ GET	/comments/list				Comments.list(format:'csv')
 
 POST	/coupons/create				Coupons.create(format:'csv')
 GET	/coupons/search				Coupons.search(format:'csv')
+GET	/coupons/print				Coupons.print
 GET	/coupons/{id}				Coupons.show
 
 POST	/events/create				Events.create(format:'csv')
 GET	/events/list				Events.list(format:'csv')
+GET	/events/print				Events.print
 GET	/events/{id}				Events.show
 
 POST	/flyers/create				Flyers.create(format:'csv')
 GET	/flyers/random				Flyers.random
+GET /flyers/{id}				Flyers.show
 
 POST	/people/login				People.login(format:'csv')
 POST	/people/register			People.register(format:'csv')
@@ -28,8 +31,8 @@ GET	/people/{id}				People.show(format:'csv')
 
 POST	/photos/create				Photos.create(format:'csv')
 GET	/photos/list				Photos.list(format:'csv')
+GET	/photos/print						Photos.pirnt
 GET	/photos/{<[0-9]+>id}				Photos.show
-
 
 # MFP mock-up
 GET	/comments/				Comments.index
