@@ -3,11 +3,22 @@ package controllers;
 import java.util.List;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.imageio.ImageIO;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import models.*;
 
@@ -58,9 +69,96 @@ public class Contents extends Controller {
         Logger.debug("return contents: " + contents);
         response.setContentTypeIfNotSet("image/bmp");
         renderBinary(is);
+    }
 
-        //response.setContentTypeIfNotSet(contents.get(0).image.type());
-        //renderBinary(contents.get(0).image.get());
+    public static void print(Integer id) {
+        List<Content> contents = null;
+        String controller = request.get().controller;
+        if (controller.equals("Photos")) {
+            contents = Photo.find("byId", new Long(id)).fetch();
+        } else if (controller.equals("Events")) {
+            contents = Event.find("byId", new Long(id)).fetch();
+        } else if (controller.equals("Coupons")) {
+            contents = Coupon.find("byId", new Long(id)).fetch();
+        } else if (controller.equals("Flyers")) {
+            contents = Flyer.find("byId", new Long(id)).fetch();
+        }
+        Logger.debug("return contents: " + contents);
+
+        Content content = contents.get(0);
+        String fileName = content.image.getFile().getAbsolutePath();
+
+        byte[] imageBytes;
+        byte[] pdfBytes = null;
+        try {
+            imageBytes = getBytesFromImage(fileName);
+            pdfBytes = convertByteArrayToPdf(imageBytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        response.setContentTypeIfNotSet("application/pdf");
+        renderBinary(new ByteArrayInputStream(pdfBytes));
+    }
+    
+        
+    /**
+     * 
+     * @param pdfBytes
+     * @param outFile
+     * @throws IOException
+     */
+    public static void output(byte[] pdfBytes, String outFile) throws IOException {
+        File f = new File(outFile);
+        OutputStream out = new FileOutputStream(f);
+        ByteArrayInputStream input = new ByteArrayInputStream(pdfBytes);
+        byte[] bytes = new byte[1024];
+        int b = 0;
+        while ((b = input.read(bytes)) != -1) {
+            out.write(bytes);
+        }
+        out.close();
+    }
+    
+    /**
+     * 
+     * @param url
+     * @return
+     * @throws IOException
+     */
+    public static byte[] getBytesFromImage(String url) throws IOException {
+        File f = new File(url);
+        InputStream is = new BufferedInputStream(new FileInputStream(f));
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] bytes = new byte[1024];
+        int b = 0;
+        while ((b = is.read(bytes)) != -1) {
+            out.write(bytes);
+        }
+        out.close();
+        return out.toByteArray();
+    }
+
+    /**
+     * 
+     * @param imageData
+     * @return
+     */
+    public static byte[] convertByteArrayToPdf(byte[] imageData) {
+        Document doc = new Document();
+        doc.setPageSize(PageSize.A4.rotate());
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+            PdfWriter.getInstance(doc,  outputStream);
+            doc.open();
+            com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(imageData);
+            doc.add(image);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            doc.close();
+        }
+        return outputStream.toByteArray();
     }
     
     public static FileInputStream convert(Content content, int width, int height) {
