@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import javax.imageio.ImageIO;
 
 import com.itextpdf.text.Document;
+import com.itextpdf.text.Jpeg;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -38,34 +39,48 @@ public class Contents extends Controller {
 
     }
 
-    public static void show(Integer id, String type) {
+    public static void show(Integer id) {
         List<Content> contents = null;
         String controller = request.get().controller;
         FileInputStream is = null;
 		Logger.debug("Contents#show -> id: " + id);
 		Logger.debug("controller: " + controller);
-
-		if (controller.equals("Photos")) {
-            contents = Photo.find("byId", new Long(id)).fetch();
-            if (type.equals("list")) {
-                is = convert(contents.get(0), 116, 116);
-            } else if (type.equals("detail")) {
-                is = convert(contents.get(0), 230, 230);
-            }
-
-        } else if (controller.equals("Events")) {
+		
+		if (controller.equals("Events")) {
             contents = Event.find("byId", new Long(id)).fetch();
             is = convert(contents.get(0), 400, 280);
-
-        } else if (controller.equals("Coupons")) {
+		} else if (controller.equals("Coupons")) {
             contents = Coupon.find("byId", new Long(id)).fetch();
             is = convert(contents.get(0), 400, 280);
-            
         } else if (controller.equals("Flyers")) {
             contents = Flyer.find("byId", new Long(id)).fetch();
             is = convert(contents.get(0), 280, 400);
         }
 		
+        Logger.debug("return contents: " + contents);
+        response.setContentTypeIfNotSet("image/bmp");
+        renderBinary(is);
+    }
+    
+
+    
+    public static void thumbnail(Integer id) {
+        List<Content> contents = null;
+        FileInputStream is = null;
+        Logger.debug("Contents#thumbnail -> id: " + id);
+        contents = Photo.find("byId", new Long(id)).fetch();
+        is = convert(contents.get(0), 116, 116);
+        Logger.debug("return contents: " + contents);
+        response.setContentTypeIfNotSet("image/bmp");
+        renderBinary(is);
+    }
+    
+    public static void detail(Integer id) {
+        List<Content> contents = null;
+        FileInputStream is = null;
+        Logger.debug("Contents#detail -> id: " + id);
+        contents = Photo.find("byId", new Long(id)).fetch();
+        is = convert(contents.get(0), 230, 230);
         Logger.debug("return contents: " + contents);
         response.setContentTypeIfNotSet("image/bmp");
         renderBinary(is);
@@ -149,6 +164,7 @@ public class Contents extends Controller {
         doc.setPageSize(PageSize.A4.rotate());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
+            doc.setPageSize(Jpeg.getInstance(imageData));
             PdfWriter.getInstance(doc,  outputStream);
             doc.open();
             com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(imageData);

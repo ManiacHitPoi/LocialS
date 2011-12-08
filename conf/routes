@@ -22,7 +22,7 @@ GET	/events/{id}				Events.show
 
 POST	/flyers/create				Flyers.create(format:'csv')
 GET	/flyers/random				Flyers.random
-GET /flyers/{id}				Flyers.show
+GET	/flyers/{id}				Flyers.show
 
 POST	/people/login				People.login(format:'csv')
 POST	/people/register			People.register(format:'csv')
@@ -32,6 +32,8 @@ GET	/people/{id}				People.show(format:'csv')
 POST	/photos/create				Photos.create(format:'csv')
 GET	/photos/list				Photos.list(format:'csv')
 GET	/photos/print/{id}			Photos.print
+GET	/photos/thumbnail/{id}			Photos.thumbnail
+GET	/photos/detail/{id}			Photos.detail
 GET	/photos/{id}				Photos.show
 
 # MFP mock-up
