@@ -39,10 +39,11 @@ public class Flyers extends Contents {
     public static void random() {
       List<Flyer> contents = Flyer.findAll();
       int randInt = new Random().nextInt(contents.size());
-      response.setContentTypeIfNotSet(contents.get(randInt).image.type());
       Flyer content = contents.get(randInt);
+      FileInputStream is = convert(content, 280, 400);
       Logger.debug("Flyers#random return: " + content);
-      renderBinary(content.image.get());
+      response.setContentTypeIfNotSet("image/bmp");
+      renderBinary(is);
     }
 
 }
