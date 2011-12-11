@@ -164,7 +164,7 @@ public class Contents extends Controller {
         doc.setPageSize(PageSize.A4.rotate());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
-            doc.setPageSize(Jpeg.getInstance(imageData));
+            //doc.setPageSize(Jpeg.getInstance(imageData));
             PdfWriter.getInstance(doc,  outputStream);
             doc.open();
             com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(imageData);
