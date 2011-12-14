@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Jpeg;
+import com.itextpdf.text.Jpeg2000;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 
@@ -35,7 +36,7 @@ public class Contents extends Controller {
     }
 
     public static void create(String title, File photo)
-	throws FileNotFoundException {
+    throws FileNotFoundException {
 
     }
 
@@ -43,27 +44,27 @@ public class Contents extends Controller {
         List<Content> contents = null;
         String controller = request.get().controller;
         FileInputStream is = null;
-		Logger.debug("Contents#show -> id: " + id);
-		Logger.debug("controller: " + controller);
-		
-		if (controller.equals("Events")) {
+        Logger.debug("Contents#show -> id: " + id);
+        Logger.debug("controller: " + controller);
+
+        if (controller.equals("Events")) {
             contents = Event.find("byId", new Long(id)).fetch();
             is = convert(contents.get(0), 400, 280);
-		} else if (controller.equals("Coupons")) {
+        } else if (controller.equals("Coupons")) {
             contents = Coupon.find("byId", new Long(id)).fetch();
             is = convert(contents.get(0), 400, 280);
         } else if (controller.equals("Flyers")) {
             contents = Flyer.find("byId", new Long(id)).fetch();
             is = convert(contents.get(0), 280, 400);
         }
-		
+
         Logger.debug("return contents: " + contents);
         response.setContentTypeIfNotSet("image/bmp");
         renderBinary(is);
     }
-    
 
-    
+
+
     public static void thumbnail(Integer id) {
         List<Content> contents = null;
         FileInputStream is = null;
@@ -74,7 +75,7 @@ public class Contents extends Controller {
         response.setContentTypeIfNotSet("image/bmp");
         renderBinary(is);
     }
-    
+
     public static void detail(Integer id) {
         List<Content> contents = null;
         FileInputStream is = null;
@@ -115,10 +116,10 @@ public class Contents extends Controller {
         response.setContentTypeIfNotSet("application/pdf");
         renderBinary(new ByteArrayInputStream(pdfBytes));
     }
-    
-        
+
+
     /**
-     * 
+     *
      * @param pdfBytes
      * @param outFile
      * @throws IOException
@@ -134,9 +135,9 @@ public class Contents extends Controller {
         }
         out.close();
     }
-    
+
     /**
-     * 
+     *
      * @param url
      * @return
      * @throws IOException
@@ -155,16 +156,16 @@ public class Contents extends Controller {
     }
 
     /**
-     * 
+     *
      * @param imageData
      * @return
      */
     public static byte[] convertByteArrayToPdf(byte[] imageData) {
         Document doc = new Document();
-        doc.setPageSize(PageSize.A4.rotate());
+        doc.setPageSize(PageSize.A4);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
-            //doc.setPageSize(Jpeg.getInstance(imageData));
+            // doc.setPageSize(Jpeg2000.getInstance(imageData));
             PdfWriter.getInstance(doc,  outputStream);
             doc.open();
             com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(imageData);
@@ -176,7 +177,7 @@ public class Contents extends Controller {
         }
         return outputStream.toByteArray();
     }
-    
+
     public static FileInputStream convert(Content content, int width, int height) {
         String fileName = content.image.getFile().getAbsolutePath();
         File inFile = new File(fileName);
@@ -185,7 +186,7 @@ public class Contents extends Controller {
         try {
             BufferedImage bi = ImageIO.read(inFile);
             ImageIO.write(bi,  "bmp", bitmap);
-            
+
             BufferedImage newbi = ImageIO.read(bitmap);
             BufferedImage newImage = null;
             newImage = new BufferedImage(width, height, newbi.getType());
@@ -198,9 +199,9 @@ public class Contents extends Controller {
         }
         return is;
     }
-    
+
     public static void list(String userId) {
 
-    }    
-    
+    }
+
 }

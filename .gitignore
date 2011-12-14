@@ -2,3 +2,4 @@ data/*
 tmp/*
 eclipse/classes/*/
 .*.class
+precompiled
